@@ -1,0 +1,121 @@
+form {
+	/*float: left;*/
+	/*margin-left: 80px;*/
+
+}
+
+ul {
+	list-style-type: none;
+}
+
+/*li {
+	font-size
+}*/
+
+.bloomSubmit {
+	top: -10px;
+}
+
+.stop {
+	left: -120px;
+	top: 10px;
+	background-color: red;
+	color: black;
+}
+
+button {
+	position: absolute;
+	/*z-index:-1;*/
+	border-radius: 50%;
+	height: 60px;
+	width: 60px;
+	color: white;
+	background-color: black;
+	z-index: 5;
+}
+
+.plus, .minus {
+	position: relative;
+	top: 20px;
+	border-color: black;
+	font-size: 16px;
+}
+
+#app {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#main {
+	position: relative;
+	margin: 50px auto;
+	height: 1000px;
+	width: 1000px;
+}
+
+/*clearfix*/
+/*.main:after {
+  content: "";
+  display: table;
+  clear: both;
+}*/
+
+.col-sm-4 {
+	padding-top: 0px;
+/*	width: 300px;
+	height: 300px;
+	border: solid 1px black;
+ 	border: none;
+	border-radius: 50%;
+ 	margin: 50px auto;
+ 	padding: 15px;*/
+}
+
+.orb {
+	/*position: absolute;*/
+	text-align: center;
+	width: 300px;
+	height: 300px;
+ 	color: transparent;
+ 	/*background-color: red;*/
+ 	border-radius: 50%;
+ 	border: solid 1px black;
+ 	border: none;
+ 	margin: 50px auto;
+ 	padding: 15px;
+ 	box-shadow: inset 0 0 1em rgba(0,0,0,0.5), 0 0 1em white;
+ 	font-family: 'Ubuntu', sans-serif;
+}
+
+h1 {
+	color: black;
+	text-align: center;
+	/*height: inherit;*/
+}
+
+.banner {
+	text-align: center;
+	display: block;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 75pt;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+/*	color: transparent;*/
+/*	color: rgba(255,231,20,0.25);*/
+}
+
+#footer {
+  text-align: center;
+  height: auto;
+  width: 100%;
+  border-top: solid 4px black;
+  /*background-image: url('bosch01a.jpg');*/
+  background-position: left top;
+  background-repeat: no-repeat;
+  /*background-color: white;*/
+  position: fixed;
+  bottom: 0;
+}
