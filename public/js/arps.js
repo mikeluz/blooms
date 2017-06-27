@@ -5,6 +5,7 @@ function randomLinearArp(audioCtx, osc, scale, length, speed) {
 }
 
 function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, isPlaying) {
+	console.log(osc);
 	var charCode;
 	var letters = [].slice.call(arrayOfLetters);
 

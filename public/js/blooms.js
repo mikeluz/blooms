@@ -42,10 +42,10 @@ $(document).ready(function() {
         responsiveVoice.speak(session.saying);
 
         // add element to footer, e.g., "ONE" --> when clicked, plays that bloom and it's spoken by the computer
-        var $bloom = $('<li class=""></li>');
+        var $bloom = $('<li class="bloomSaying"></li>');
         $bloom.attr('id', session.blooms.length);
         var $link = $('<a href="#"></a>');
-        $link.attr('class', 'bloomSaying');
+        // $link.attr('class', 'bloomSaying');
         $link.text('BLOOM ' + (session.blooms.length));
         $bloom.append($link);
         $('.plus').append($bloom);
@@ -57,15 +57,13 @@ $(document).ready(function() {
 
     document.addEventListener('newBloom', function() {
         $('.bloomSaying').on('click', function(e) {
-            console.log("CLICK BLOOM")
             var newOsc = audioCtx.createOscillator();
-            console.log(newOsc);
             newOsc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
             bloomOsc.push(newOsc);
-            console.log(bloomOsc);
             var bloomID  = $(this).attr('id');
             var letters = session.blooms[+bloomID - 1];
+            console.log(bloomID);
             if (letters) {
                 bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[bloomOsc.length - 1], notes, letters, 3, 5000);
                 // isPlaying = true;
@@ -198,7 +196,7 @@ $(document).ready(function() {
                 osc = null;
             })
         }
-        if (mainOsc) {
+        if (mainOsc && isPlaying) {
             mainOsc.stop();
             mainOsc = null;
         }
