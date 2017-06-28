@@ -11,7 +11,8 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, is
 
 	// if not playing already, start
 	// if (!isPlaying) {
-		osc.start();
+		// osc.start();
+		vibrato(osc);
 	// }
 
 	// filter out anything that isn't a letter
@@ -50,4 +51,18 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, is
 	}, repeatInterval)
 
 	return interval;
+}
+
+function vibrato(osc) {
+	osc.start();
+	osc.frequency.value -= 20;
+	var plusOrMinus = true;
+	return setInterval(function() {
+		if (plusOrMinus) {
+			osc.frequency.value += 20;
+		} else {
+			osc.frequency.value -= 20;
+		}
+		plusOrMinus = !plusOrMinus;
+	}, 100);
 }
