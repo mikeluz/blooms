@@ -23,6 +23,7 @@ $(document).ready(function() {
     mainOsc.connect(gainNode);
     gainNode.connect(audioCtx.destination);
     var isPlaying = false;
+    var bloomHasBeenClicked = false;
 
     $('.bloomSubmit').on('click', function(e) {
         // check if osc is playing -- if so, stop and flip flag
@@ -42,32 +43,53 @@ $(document).ready(function() {
         responsiveVoice.speak(session.saying);
 
         // add element to footer, e.g., "ONE" --> when clicked, plays that bloom and it's spoken by the computer
+        var $link = $('<a href="#"></a>');
         var $bloom = $('<li class="bloomSaying"></li>');
         $bloom.attr('id', session.blooms.length);
-        var $link = $('<a href="#"></a>');
         // $link.attr('class', 'bloomSaying');
-        $link.text('BLOOM ' + (session.blooms.length));
-        $bloom.append($link);
-        $('.plus').append($bloom);
+        $bloom.text('BLOOM ' + (session.blooms.length));
+        $link.append($bloom);
+        $('.plus').append($link);
+        $('.plus').append('<hr/>');
         document.dispatchEvent(newBloomEvent);
     });
 
     var bloomRepeatsInterval;
     var bloomOsc = [];
+    var orbalism;
 
     document.addEventListener('newBloom', function() {
         $('.bloomSaying').on('click', function(e) {
-            var newOsc = audioCtx.createOscillator();
-            newOsc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            bloomOsc.push(newOsc);
             var bloomID  = $(this).attr('id');
+            console.log(bloomOsc);
             var letters = session.blooms[+bloomID - 1];
-            console.log(bloomID);
-            if (letters) {
-                bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[bloomOsc.length - 1], notes, letters, 3, 5000);
-                // isPlaying = true;
+            if (letters && !bloomHasBeenClicked) {
+                // if ((+bloomID === (bloomOsc.length + 1)) && !bloomHasBeenClicked) {
+                    var newOsc = audioCtx.createOscillator();
+                    newOsc.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    bloomOsc[+bloomID - 1] = newOsc;
+                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, 3, 5000);
+                // }
             }
+            var directions = ["margin-left", "margin-right", "margin-bottom", "margin-top"];
+            var flag = false;
+            if (!bloomHasBeenClicked) {
+                orbalism = setInterval(function() {
+                    $('.orb').each(function() {
+                        var whichDirectionIndex = Math.floor(Math.random() * 100) % 4;
+                        var otherDirectionIndex = Math.floor(Math.random() * 100) % 4;
+                        var amount = Math.floor(Math.random() * 100) + "px";
+                        var direction = flag ? "+" : "-";
+                        var movement = {};
+                        movement[`${directions[whichDirectionIndex]}`] = `${direction}${amount}`;
+                        movement[`${directions[otherDirectionIndex]}`] = `${direction}${amount}`;
+                        $(this).animate(movement);
+                        flag = !flag;
+                    }, 100);
+                });
+            }
+            bloomHasBeenClicked = true;
          });
     });
 
@@ -187,13 +209,15 @@ $(document).ready(function() {
      // });
 
      $('.stop').on('click', function(e) {
-
+        clearInterval(orbalism);
+        $('.orb').each(function() {
+            $(this).stop(true, true);
+        });
         clearInterval(bloomRepeatsInterval);
         if (bloomOsc) {
-            console.log(bloomOsc);
             bloomOsc.forEach(osc => {
                 osc.stop();
-                osc = null;
+                osc = audioCtx.createOscillator();
             })
         }
         if (mainOsc && isPlaying) {
@@ -201,6 +225,7 @@ $(document).ready(function() {
             mainOsc = null;
         }
         isPlaying = false;
+        bloomHasBeenClicked = false;
 
         // $('.orb').animate({
         //     "width": "-=" + session.interval,

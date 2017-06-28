@@ -8,9 +8,13 @@ ul {
 	list-style-type: none;
 }
 
-/*li {
-	font-size
-}*/
+a {
+	color: black;
+}
+
+li {
+	border: 1px solid black;
+}
 
 .bloomSubmit {
 	top: -10px;
