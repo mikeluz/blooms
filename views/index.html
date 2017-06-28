@@ -12,7 +12,7 @@
         <div id='main'>
             <div class="form-group row">
                 <!-- <label for="saying" class="col-2 col-form-label">Saying</label> -->
-                <div class="col-10">
+                <div class="">
                     <form method="GET" action="/saying/">
                         <input name="saying" class="form-control" type="text" value="The orb repeats."/>
                     </form>
@@ -157,6 +157,13 @@
                 <div>
                     <button class='stop'>STOP</button>
                 </div>
+            </div>
+            <div class="col-sm-2">
+                <input name="saying" class="speedInput" type="text" placeholder="How fast? (0 - 10)"/>
+                <input name="saying" class="lengthInput" type="text" placeholder="How long? (0 - 100)"/>
+            </div>
+            <div class="col-sm-2">
+                <button class="speedBtn">SET</button>
             </div>
         </div>
     </div>

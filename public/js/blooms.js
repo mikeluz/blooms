@@ -33,7 +33,8 @@ $(document).ready(function() {
         }
         // create main oscillator
         mainOsc = audioCtx.createOscillator();
-        mainOsc.type = "square";
+        // mainOsc.type = "square";
+        // var gainNode = audioCtx.createGain();
         mainOsc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         session.saying = $('input').val();
@@ -58,6 +59,18 @@ $(document).ready(function() {
     var bloomRepeatsInterval;
     var bloomOsc = [];
     var orbalism;
+    var speed = 5;
+    var length = 3;
+
+    $('.speedBtn').on('click', function(e) {
+        var $speed = $('.speedInput');
+        speed = $speed.val();
+        $speed.val('');
+
+        var $length = $('.lengthInput');
+        length = $length.val();
+        $length.val('');
+    });
 
     document.addEventListener('newBloom', function() {
         $('.bloomSaying').on('click', function(e) {
@@ -69,7 +82,7 @@ $(document).ready(function() {
                     newOsc.connect(gainNode);
                     gainNode.connect(audioCtx.destination);
                     bloomOsc[+bloomID - 1] = newOsc;
-                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, 3, 5000);
+                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, speed, 5000);
                 // }
             }
             var directions = ["margin-left", "margin-right", "margin-bottom", "margin-top"];
@@ -104,15 +117,15 @@ $(document).ready(function() {
             gainNode.connect(audioCtx.destination);
         }
 
-        randomLinearArp(audioCtx, mainOsc, linearNotes, 3, 3);
+        randomLinearArp(audioCtx, mainOsc, linearNotes, length, speed);
+        // randomFreqArp(audioCtx, mainOsc, length, speed);
 
         var noteIndex = numInRange(30, 58);
         gainNode.gain.value = 0.2;
 
         if (!isPlaying) {
-            // vibrato(mainOsc);
-            // mainOsc.type = "square";
-            mainOsc.start();
+            vibrato(mainOsc);
+            // mainOsc.start();
             isPlaying = true;
         }
         //     gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 8);

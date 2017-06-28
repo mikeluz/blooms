@@ -31,8 +31,7 @@ app.use('/jquery', express.static(path.join(__dirname, '/node_modules/jquery/dis
 // app.use('/record', require('./routes/record')); // sets "/record" URI path to the record router
 // app.use('/artists', require('./routes/artists')); // sets "/artists" URI path to the artists router
 
-app.get('/saying', function (req, res, next) { // basic GET request for homepage
-	console.log(req.body);
+app.get('/saying', function (req, res, next) {
 	var phrase = req.body.saying;
 	res.render('index');
 });

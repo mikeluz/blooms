@@ -20,6 +20,11 @@ li {
 	top: -10px;
 }
 
+.speedBtn {
+	top: -5px;
+	right: 80px;
+}
+
 .stop {
 	left: -120px;
 	top: 10px;

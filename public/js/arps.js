@@ -1,19 +1,23 @@
 function randomLinearArp(audioCtx, osc, scale, length, speed) {
 	for (var i = 0; i < length; i++) {
-		osc.frequency.setValueAtTime(scale[numInRange(30, 58)], audioCtx.currentTime + (i / speed));
+		var random = Math.floor(Math.random() * 2);
+		osc.frequency.setValueAtTime(scale[numInRange(30, 58)], audioCtx.currentTime + (i / speed) + random);
 	}
 }
 
-function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, isPlaying) {
-	console.log(osc);
+function randomFreqArp(audioCtx, osc, length, speed) {
+	for (var i = 0; i < length; i++) {
+		var random = Math.floor(Math.random() * 10);
+		osc.frequency.setValueAtTime(numInRangeLarge(500, 550), audioCtx.currentTime + (i / speed) + random);
+	}
+}
+
+function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval) {
 	var charCode;
 	var letters = [].slice.call(arrayOfLetters);
 
-	// if not playing already, start
-	// if (!isPlaying) {
-		// osc.start();
-		vibrato(osc);
-	// }
+	// osc.start();
+	vibrato(osc);
 
 	// filter out anything that isn't a letter
 	letters = letters.filter(function(letter) {
@@ -55,13 +59,12 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, is
 
 function vibrato(osc) {
 	osc.start();
-	osc.frequency.value -= 20;
 	var plusOrMinus = true;
 	return setInterval(function() {
 		if (plusOrMinus) {
-			osc.frequency.value += 20;
+			osc.frequency.value -= 10;
 		} else {
-			osc.frequency.value -= 20;
+			osc.frequency.value += 10;
 		}
 		plusOrMinus = !plusOrMinus;
 	}, 100);

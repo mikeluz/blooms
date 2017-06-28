@@ -7,6 +7,14 @@ function numInRange(lower, upper) {
   return num;
 }
 
+function numInRangeLarge(lower, upper) {
+  var num = Math.floor(Math.random() * 1000);
+  while (num < lower || num > upper) {
+    num = Math.floor(Math.random() * 1000);
+  } 
+  return num;
+}
+
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
