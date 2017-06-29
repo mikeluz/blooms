@@ -12,9 +12,14 @@ $(document).ready(function() {
     var session = new Blooms();
     // create saying fields to be populated by user input
     var $text = $('<p class="saying"></p>');
+    var audioCtx;
 
     // Web Audio stuff
-    var audioCtx = new AudioContext();
+    if('webkitAudioContext' in window) {
+        audioCtx = new webkitAudioContext();
+    } else {
+        audioCtx = new AudioContext();
+    }
     var notes = createNoteTable();
     var linearNotes = createLinearNoteTable();
     var mainOsc = audioCtx.createOscillator();
