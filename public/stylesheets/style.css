@@ -21,13 +21,13 @@ li {
 }
 
 .speedBtn {
-	top: -5px;
-	right: 80px;
+	top: 46px;
+	left: -90px;
 }
 
 .stop {
-	left: -120px;
-	top: 10px;
+	left: -160px;
+	top: 46px;
 	background-color: red;
 	color: black;
 }
@@ -104,13 +104,12 @@ h1 {
 }
 
 .banner {
-	text-align: center;
-	display: block;
+	/*display: block;*/
 	font-family: 'Ubuntu', sans-serif;
 	font-size: 75pt;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
+	width: 40%;
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
 	margin-top: 10px;
 /*	color: transparent;*/
 /*	color: rgba(255,231,20,0.25);*/
@@ -127,4 +126,25 @@ h1 {
   /*background-color: white;*/
   position: fixed;
   bottom: 0;
+}
+
+.speedInput .lengthInput {
+	float: left;
+} 
+
+#settings {
+	padding-top: 2px;
+	top: 0px;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  border-top: solid 4px black;
+  /*background-image: url('bosch01a.jpg');*/
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-color: rgba(0,0,0,0.8);
+  position: fixed;
+  bottom: 0;
+  display: none;
+	z-index: 5;
 }

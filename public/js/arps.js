@@ -1,20 +1,21 @@
-function randomLinearArp(audioCtx, osc, scale, length, speed) {
+function randomLinearArp(audioCtx, osc, scale, length, speed, feel) {
 	for (var i = 0; i < length; i++) {
-		var random = Math.floor(Math.random() * 2);
+		var random = feel ? Math.floor(Math.random() * feel) : 0;
 		osc.frequency.setValueAtTime(scale[numInRange(30, 58)], audioCtx.currentTime + (i / speed) + random);
 	}
 }
 
-function randomFreqArp(audioCtx, osc, length, speed) {
+function randomFreqArp(audioCtx, osc, length, speed, feel) {
 	for (var i = 0; i < length; i++) {
-		var random = Math.floor(Math.random() * 10);
+		var random = feel ? Math.floor(Math.random() * feel) : 0;
 		osc.frequency.setValueAtTime(numInRangeLarge(500, 550), audioCtx.currentTime + (i / speed) + random);
 	}
 }
 
-function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval) {
+function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, feel) {
 	var charCode;
 	var letters = [].slice.call(arrayOfLetters);
+	var random = feel ? Math.floor(Math.random() * feel) : 0;
 
 	// osc.start();
 	vibrato(osc);
@@ -35,7 +36,7 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval) {
 			// pick frequency
 			var frequency = scale[octave][String.fromCharCode(charCode)];
 			// schedule arpeggiation
-			osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + (i / speed));
+			osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + (i / speed) + random);
 	}
 
 	// loop through and assign arpeggiation
@@ -50,7 +51,7 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval) {
 			// pick frequency
 			var frequency = scale[octave][String.fromCharCode(charCode)];
 			// schedule arpeggiation
-			osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + (i / speed));
+			osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + (i / speed) + random);
 		}
 	}, repeatInterval)
 

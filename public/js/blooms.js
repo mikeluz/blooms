@@ -61,8 +61,12 @@ $(document).ready(function() {
     var orbalism;
     var speed = 5;
     var length = 3;
+    var feel = 0;
 
     $('.speedBtn').on('click', function(e) {
+
+        $('#settings').toggle();
+
         var $speed = $('.speedInput');
         speed = $speed.val();
         $speed.val('');
@@ -70,6 +74,10 @@ $(document).ready(function() {
         var $length = $('.lengthInput');
         length = $length.val();
         $length.val('');
+
+        var $feel = $('.feelInput');
+        feel = $feel.val();
+        $feel.val('');
     });
 
     document.addEventListener('newBloom', function() {
@@ -82,7 +90,7 @@ $(document).ready(function() {
                     newOsc.connect(gainNode);
                     gainNode.connect(audioCtx.destination);
                     bloomOsc[+bloomID - 1] = newOsc;
-                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, speed, 5000);
+                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, speed, 5000, feel);
                 // }
             }
             var directions = ["margin-left", "margin-right", "margin-bottom", "margin-top"];
@@ -117,7 +125,7 @@ $(document).ready(function() {
             gainNode.connect(audioCtx.destination);
         }
 
-        randomLinearArp(audioCtx, mainOsc, linearNotes, length, speed);
+        randomLinearArp(audioCtx, mainOsc, linearNotes, length, speed, feel);
         // randomFreqArp(audioCtx, mainOsc, length, speed);
 
         var noteIndex = numInRange(30, 58);
@@ -176,8 +184,6 @@ $(document).ready(function() {
 
     // pressing enter toggles background color
     $(this).on('keypress', function(event) {
-
-        console.log(event.which);
 
         if (event.which === 97) {
             mainOsc.frequency.value -= (mainOsc.frequency.value / 2);
