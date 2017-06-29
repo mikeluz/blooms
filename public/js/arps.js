@@ -35,6 +35,7 @@ function wordArp(audioCtx, osc, scale, arrayOfLetters, speed, repeatInterval, fe
 			var octave = numInRange(2, 3);
 			// pick frequency
 			var frequency = scale[octave][String.fromCharCode(charCode)];
+			console.log(frequency);
 			// schedule arpeggiation
 			osc.frequency.setValueAtTime(frequency, audioCtx.currentTime + (i / speed) + random);
 	}

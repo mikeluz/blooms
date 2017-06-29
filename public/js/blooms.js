@@ -33,8 +33,6 @@ $(document).ready(function() {
         }
         // create main oscillator
         mainOsc = audioCtx.createOscillator();
-        // mainOsc.type = "square";
-        // var gainNode = audioCtx.createGain();
         mainOsc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         session.saying = $('input').val();
@@ -48,7 +46,6 @@ $(document).ready(function() {
         var $link = $('<a href="#"></a>');
         var $bloom = $('<li class="bloomSaying"></li>');
         $bloom.attr('id', session.blooms.length);
-        // $link.attr('class', 'bloomSaying');
         $bloom.text('BLOOM ' + (session.blooms.length));
         $link.append($bloom);
         $('.plus').append($link);
@@ -68,15 +65,16 @@ $(document).ready(function() {
         $('#settings').toggle();
 
         var $speed = $('.speedInput');
-        speed = $speed.val();
+        speed = $speed.val() <= 10 ? $speed.val() : (($speed.val() % 10 )+ 1);
+        console.log(speed);
         $speed.val('');
 
         var $length = $('.lengthInput');
-        length = $length.val();
+        length = $length.val() <= 100 ? $length.val() : (($length.val() % 100) + 1);
         $length.val('');
 
         var $feel = $('.feelInput');
-        feel = $feel.val();
+        feel = $feel.val() <= 5 ? $feel.val() : (($feel.val() % 5) + 1);
         $feel.val('');
     });
 
@@ -85,13 +83,11 @@ $(document).ready(function() {
             var bloomID  = $(this).attr('id');
             var letters = session.blooms[+bloomID - 1];
             if (letters && !bloomHasBeenClicked) {
-                // if ((+bloomID === (bloomOsc.length + 1)) && !bloomHasBeenClicked) {
-                    var newOsc = audioCtx.createOscillator();
-                    newOsc.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    bloomOsc[+bloomID - 1] = newOsc;
-                    bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, speed, 5000, feel);
-                // }
+                var newOsc = audioCtx.createOscillator();
+                newOsc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                bloomOsc[+bloomID - 1] = newOsc;
+                bloomRepeatsInterval = wordArp(audioCtx, bloomOsc[+bloomID - 1], notes, letters, speed, 5000, feel);
             }
             var directions = ["margin-left", "margin-right", "margin-bottom", "margin-top"];
             var flag = false;
@@ -153,16 +149,11 @@ $(document).ready(function() {
 
             // affects movement
             "margin-left": direction + "=" + session.interval,
-            // "margin-top": direction + "=" + session.interval
-            // "left": "+=" + interval,
-            // "right": "+=" + interval,
-            // "bottom": "+=" + interval 
             },
         "slow")
         .after(        
             $(this).animate({
-                opacity: 0.25,
-                // width: "toggle"
+                opacity: 0.25
             }, 1000)
         );
 
